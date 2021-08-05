@@ -18,13 +18,24 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource("projects", ProjectController::class);
+
 Route::get('/user', function(){
-$users =\App\Models\User::all();
-// $addresses = \App\Models\Address::all();
+    $users = \App\Models\User::with('posts')->get();
+
 return view('users.index',compact('users'));
 
 });
+Route::get('/posts', function(){
+    $posts=\App\Models\Post::get();
+    return view('posts.index',compact('posts'));
+});
+
+Route::resource("projects", ProjectController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -37,6 +48,3 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -43,9 +43,14 @@ class User extends Authenticatable
 
     public function address()
     {
-        return $this->hasOne(address::class);
+    return $this->hasOne(address::class);
     }
-
-
-
+    public function addresses()
+    {
+        return $this->hasMany(address::class);
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
