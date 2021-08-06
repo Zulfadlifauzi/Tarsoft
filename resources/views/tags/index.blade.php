@@ -5,13 +5,13 @@
     <div class='row justify-content-center'>
         <div class='col-md-8'>
             <div class='card'>
-                @foreach($posts as $post)
-                <h1>{{$post->title}}</h1>
-                <p>{{$post->user->name}}</p>
+
+                @foreach($tags as $tag)
+                <h1>{{$tag->name}}</h1>
 
                 <ul>
-                    @foreach($post->tags as $tag)
-                    <li>{{$tag->name}}</li>
+                    @foreach($tag->posts as $post)
+                    <li>{{$post->title}}</li>
                     @endforeach
                 </ul>
                 @endforeach

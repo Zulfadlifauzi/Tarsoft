@@ -26,8 +26,20 @@ return view('users.index',compact('users'));
 
 });
 Route::get('/posts', function(){
-    $posts=\App\Models\Post::get();
+    // $tag =\App\Models\Tag::first();
+    $post =\App\Models\Post::with('tags')->first();
+    // $post ->tags()->detach();
+    $post ->tags()->sync([1,4]);
+
+    // dd($post);
+
+    $posts=\App\Models\Post::with(['user','tags'])->get();
     return view('posts.index',compact('posts'));
+});
+
+Route::get('/tags', function(){
+    $tags =\App\Models\Tag::with('posts')->get();
+    return view('tags.index',compact('tags'));
 });
 
 Route::resource("projects", ProjectController::class);
